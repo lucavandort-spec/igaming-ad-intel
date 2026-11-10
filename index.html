@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Casino Ad Intel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: KPI strip, then a sticky control bar over a dense ranked wall of ad cards; Brands tab swaps the wall for a leaderboard. Neutral canvas so the creatives carry the colour. */
+:root{
+  --bg:#f3f3f0; --surface:#ffffff; --line:#d9d9d2; --fg:#16171a; --muted:#5b5e64; --chip:#ebeae4;
+  --accent:#946410; --accent-ink:#ffffff; --good:#1d7a4c; --warn:#a15c12;
+  --c-casino:#1f7a4d; --c-social:#6b4bb8; --c-rg:#2f6f9e; --c-sport:#8a5a2b; --c-aff:#7a6a1f; --c-land:#6b6f76; --c-unv:#b23b3b;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111214; --surface:#1a1b1e; --line:#2b2d32; --fg:#ebebe8; --muted:#9c9ea5; --chip:#24262a;
+  --accent:#e2b250; --accent-ink:#16171a; --good:#4cc38a; --warn:#e0a052;
+  --c-casino:#4cc38a; --c-social:#a98bf0; --c-rg:#6fb0e0; --c-sport:#d39a5f; --c-aff:#d3c06a; --c-land:#a3a7ad; --c-unv:#ef7a7a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111214; --surface:#1a1b1e; --line:#2b2d32; --fg:#ebebe8; --muted:#9c9ea5; --chip:#24262a;
+  --accent:#e2b250; --accent-ink:#16171a; --good:#4cc38a; --warn:#e0a052;
+  --c-casino:#4cc38a; --c-social:#a98bf0; --c-rg:#6fb0e0; --c-sport:#d39a5f; --c-aff:#d3c06a; --c-land:#a3a7ad; --c-unv:#ef7a7a; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--body);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 64px}
+h1{font:800 clamp(34px,5vw,58px)/.95 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0;text-wrap:balance}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{max-width:72ch;color:var(--muted);margin:10px 0 0}
+header{display:grid;gap:20px;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:end;border-bottom:1px solid var(--line);padding-bottom:22px}
+@media (max-width:900px){header{grid-template-columns:1fr}}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:var(--surface);padding:10px 12px;min-width:0}
+.kpi b{display:block;font:700 30px/1 var(--display);font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted)}
+@media (max-width:480px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.views{display:flex;gap:4px;margin-top:20px;border-bottom:1px solid var(--line)}
+.view{font:700 18px var(--display);text-transform:uppercase;letter-spacing:.03em;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 12px 7px;cursor:pointer}
+.view[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip-btn{font:600 12.5px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 10px;border-radius:999px;cursor:pointer;min-height:34px;display:inline-flex;gap:6px;align-items:center}
+.chip-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip-btn .n{font:400 11.5px var(--mono);opacity:.7}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+select,input[type=search]{font:500 13px var(--body);background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-height:34px;max-width:100%}
+input[type=search]{width:170px}
+label.sel{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+label.tog{display:inline-flex;gap:6px;align-items:center;font-size:13px;cursor:pointer}
+.count{margin-left:auto;font:400 12px var(--mono);color:var(--muted)}
+.note{font-size:13px;color:var(--muted);padding:10px 0 0;max-width:100ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding-top:16px}
+@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+.card{display:flex;flex-direction:column;min-width:0;background:none;border:0;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.thumb{position:relative;aspect-ratio:4/5;max-width:100%;background:var(--chip);border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.thumb img{width:100%;height:100%;object-fit:contain;transition:transform .2s ease}
+.card:hover .thumb img{transform:scale(1.02)}
+.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.rank{position:absolute;top:0;left:0;background:var(--fg);color:var(--bg);font:700 19px/1 var(--display);padding:6px 9px 5px;font-variant-numeric:tabular-nums}
+.badge{position:absolute;top:6px;right:6px;font:600 10.5px var(--mono);text-transform:uppercase;letter-spacing:.04em;background:rgba(0,0,0,.72);color:#fff;padding:3px 6px;border-radius:4px}
+.catbar{position:absolute;bottom:0;left:0;right:0;height:4px}
+.meta{padding:8px 2px 0;display:grid;gap:3px;min-width:0}
+.brand{display:flex;justify-content:space-between;gap:8px;font-weight:600;font-size:14px}
+.brand span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.metric{font:600 13px var(--mono);color:var(--accent);white-space:nowrap}
+.metric.est{color:var(--muted);font-weight:400}
+.title{font-size:12.5px;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:2.9em}
+.facts{font:400 11.5px var(--mono);color:var(--muted);display:flex;flex-wrap:wrap;gap:3px 10px;font-variant-numeric:tabular-nums}
+.more{display:flex;justify-content:center;padding:26px 0}
+.btn{font:600 13px var(--body);padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;text-decoration:none;min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.chip-btn:focus-visible,select:focus-visible,input:focus-visible,.view:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.empty{padding:40px 0;color:var(--muted)}
+.tablewrap{overflow-x:auto;padding-top:14px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);cursor:pointer;user-select:none}
+th[aria-sort]{color:var(--fg)}
+td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+th.num{text-align:right}
+td .bar{display:inline-block;height:6px;background:var(--accent);border-radius:3px;vertical-align:middle;margin-left:6px}
+tr.brandrow{cursor:pointer}
+tr.brandrow:hover td{background:var(--chip)}
+dialog{border:0;padding:0;background:var(--surface);color:var(--fg);max-width:min(1040px,calc(100vw - 32px));width:100%;max-height:calc(100dvh - 32px)}
+dialog::backdrop{background:rgba(10,10,12,.74)}
+.lb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-height:calc(100dvh - 32px)}
+@media (max-width:760px){.lb{grid-template-columns:1fr;overflow:auto}}
+.lb-img{background:var(--chip);display:flex;align-items:center;justify-content:center;min-height:0}
+.lb-img img{max-height:calc(100dvh - 32px);width:auto;max-width:100%;object-fit:contain}
+.lb-body{padding:22px;overflow:auto;display:grid;gap:14px;align-content:start;min-width:0}
+.lb-body h2{font:800 30px/1 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:13px}
+dt{color:var(--muted)} dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums;min-width:0;overflow-wrap:anywhere}
+.reachbox{border:1px solid var(--line);padding:12px;display:grid;gap:10px}
+.reachbox .big{font:700 34px/1 var(--display);font-variant-numeric:tabular-nums}
+.split{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--chip)}
+.split i{display:block;height:100%}
+.ages{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;align-items:end;height:64px}
+.ages div{background:var(--accent);opacity:.85;border-radius:2px 2px 0 0;min-height:2px}
+.agelbl{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font:400 10px var(--mono);color:var(--muted);text-align:center}
+.copy{white-space:pre-wrap;font-size:13px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px;margin:0}
+.lb-actions{display:flex;flex-wrap:wrap;gap:8px}
+.small{font-size:12px;color:var(--muted)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:grid;gap:8px;max-width:100ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow" id="stamp">Meta Ad Library · active ads</div>
+      <h1>Casino Ad Intel</h1>
+      <p class="lede">Every live casino-related ad we could pull from Meta's Ad Library, worldwide: real-money casinos, sweepstakes and social apps, affiliates and more. Ranked by how long each ad has been running and how many people it reached. Click any ad for details.</p>
+    </div>
+    <div class="kpis" id="kpis" aria-label="Totals"></div>
+  </header>
+
+  <div class="views" role="tablist" aria-label="View">
+    <button class="view" role="tab" id="tab-ads" aria-selected="true">Ads</button>
+    <button class="view" role="tab" id="tab-brands" aria-selected="false">Brands</button>
+  </div>
+
+  <div class="controls" role="group" aria-label="Filter and sort">
+    <div class="chips" id="cats"></div>
+    <label class="sel" for="sort">Rank by
+      <select id="sort">
+        <option value="traffic">Traffic (reach)</option>
+        <option value="days">Longest running</option>
+        <option value="score">Combined score</option>
+        <option value="newest">Newest</option>
+      </select></label>
+    <label class="sel" for="market">Market <select id="market"></select></label>
+    <label class="sel" for="format">Format <select id="format"></select></label>
+    <input type="search" id="q" placeholder="Search brand or copy" aria-label="Search brand or copy">
+    <label class="tog" for="reachonly"><input type="checkbox" id="reachonly"> Measured reach only</label>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <p class="note" id="note"></p>
+
+  <section id="adsView">
+    <div class="grid" id="grid"></div>
+    <div class="more"><button class="btn" id="moreBtn" type="button">Show more</button></div>
+  </section>
+  <section id="brandsView" hidden>
+    <div class="tablewrap"><table id="brandTable"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <footer>
+    <p><strong>Traffic.</strong> Meta publishes real reach (people who saw the ad) only for ads shown in the EU. Those ads show a measured number. Everywhere else (UK, US, Canada, Latin America, etc.) Meta shows no numbers, so traffic is estimated from where the ad sits in Meta's own "most impressions" ordering for that advertiser, and is marked <em>est.</em></p>
+    <p><strong>Combined score</strong> = 45% traffic (reach percentile, or impression rank if no reach), 40% days running, 15% how many ads reuse the same creative.</p>
+    <p><strong>Unverified promoters</strong> are personal-looking pages pushing casino offers, often offshore or unlicensed. Kept for reference; not something to copy.</p>
+  </footer>
+</div>
+
+<dialog id="lb" aria-labelledby="lb-title">
+  <div class="lb">
+    <div class="lb-img"><img id="lb-img" alt=""></div>
+    <div class="lb-body">
+      <div class="eyebrow" id="lb-eyebrow"></div>
+      <h2 id="lb-title"></h2>
+      <div id="lb-reach"></div>
+      <dl id="lb-dl"></dl>
+      <p class="copy" id="lb-copy"></p>
+      <div class="lb-actions">
+        <a class="btn primary" id="lb-link" href="#" target="_blank" rel="noopener">Open in Ad Library</a>
+        <button class="btn" id="lb-prev" type="button">Previous</button>
+        <button class="btn" id="lb-next" type="button">Next</button>
+        <button class="btn" id="lb-close" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const CATS=[
+ {k:'Online casino',c:'var(--c-casino)'},{k:'Sweepstakes & social casino',c:'var(--c-social)'},
+ {k:'Safer gambling',c:'var(--c-rg)'},{k:'Sportsbook',c:'var(--c-sport)'},
+ {k:'Affiliate & review sites',c:'var(--c-aff)'},{k:'Land-based casino',c:'var(--c-land)'},{k:'Unverified promoters',c:'var(--c-unv)'}];
+const catColor=k=>(CATS.find(c=>c.k===k)||{}).c||'var(--muted)';
+const fmtN=n=>n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+'M':n>=1e3?Math.round(n/1e3)+'K':String(n);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let ADS=[],META={},view=[],shown=0,idx=0;
+const PAGE=60;
+let st={cats:['Online casino'],sort:'traffic',market:'all',format:'all',q:'',reachonly:false,tab:'ads'};
+try{const s=JSON.parse(localStorage.getItem('cai-state')||'null');if(s)st={...st,...s}}catch(e){}
+const save=()=>{try{localStorage.setItem('cai-state',JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+
+fetch('data/ads.json').then(r=>r.json()).then(d=>{ADS=d.ads;META=d.meta;init()}).catch(()=>{$('grid').innerHTML='<p class="empty">Could not load data/ads.json. If you opened this file directly, serve the folder over http instead.</p>'});
+
+function init(){
+  $('stamp').textContent=`Meta Ad Library · active ads · scraped ${META.scraped}`;
+  const casino=ADS.filter(a=>a.cat==='Online casino');
+  const med=arr=>{const s=arr.filter(x=>x!=null).sort((a,b)=>a-b);return s.length?s[Math.floor(s.length/2)]:0};
+  $('kpis').innerHTML=[
+    [META.ads.toLocaleString(),'ads tracked'],[META.brands,'advertisers'],[META.markets,'markets'],
+    [fmtN(META.totalReach),'measured EU reach'],[META.withReach,'ads with measured reach'],[med(casino.map(a=>a.days))+'d','median run, casino ads']
+  ].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
+  const markets=['all',...[...new Set(ADS.map(a=>a.mkt))].sort()];
+  $('market').innerHTML=markets.map(m=>`<option value="${esc(m)}">${m==='all'?'All markets':esc(m)}</option>`).join('');
+  $('format').innerHTML=['all','Static','Video','Dynamic','Carousel'].map(f=>`<option value="${f}">${f==='all'?'All formats':f}</option>`).join('');
+  $('sort').value=st.sort;$('market').value=markets.includes(st.market)?st.market:'all';$('format').value=st.format;$('q').value=st.q;$('reachonly').checked=st.reachonly;
+  $('sort').onchange=e=>{st.sort=e.target.value;save();render()};
+  $('market').onchange=e=>{st.market=e.target.value;save();render()};
+  $('format').onchange=e=>{st.format=e.target.value;save();render()};
+  let t;$('q').oninput=e=>{clearTimeout(t);t=setTimeout(()=>{st.q=e.target.value.trim();save();render()},180)};
+  $('reachonly').onchange=e=>{st.reachonly=e.target.checked;save();render()};
+  $('moreBtn').onclick=()=>drawMore();
+  $('tab-ads').onclick=()=>{st.tab='ads';save();render()};
+  $('tab-brands').onclick=()=>{st.tab='brands';save();render()};
+  render();
+}
+function renderCats(){
+  const base=filtered(false);
+  $('cats').innerHTML=CATS.map(c=>{const n=base.filter(a=>a.cat===c.k).length;const on=st.cats.includes(c.k);
+    return `<button type="button" class="chip-btn" aria-pressed="${on}" data-k="${esc(c.k)}"><span class="dot" style="background:${c.c}"></span>${esc(c.k)}<span class="n">${n}</span></button>`}).join('');
+  $('cats').querySelectorAll('button').forEach(b=>b.onclick=()=>{const k=b.dataset.k;st.cats=st.cats.includes(k)?st.cats.filter(x=>x!==k):[...st.cats,k];if(!st.cats.length)st.cats=[k];save();render()});
+}
+function filtered(useCats=true){
+  const q=st.q.toLowerCase();
+  return ADS.filter(a=>(!useCats||st.cats.includes(a.cat))&&(st.market==='all'||a.mkt===st.market)&&(st.format==='all'||a.fmt===st.format)&&(!st.reachonly||a.reach)&&(!q||(a.brand+' '+a.body+' '+a.title+' '+a.dom).toLowerCase().includes(q)));
+}
+const sorters={
+  traffic:(a,b)=>((b.reach?b.reach.n:-1)-(a.reach?a.reach.n:-1))||(b.traffic-a.traffic)||((b.days||0)-(a.days||0)),
+  days:(a,b)=>((b.days||0)-(a.days||0))||(b.traffic-a.traffic),
+  score:(a,b)=>b.score-a.score,
+  newest:(a,b)=>((a.days??1e9)-(b.days??1e9))};
+function render(){
+  $('tab-ads').setAttribute('aria-selected',st.tab==='ads');$('tab-brands').setAttribute('aria-selected',st.tab==='brands');
+  $('adsView').hidden=st.tab!=='ads';$('brandsView').hidden=st.tab!=='brands';
+  renderCats();
+  view=filtered().sort(sorters[st.sort]);
+  const notes={traffic:'Ads with measured EU reach come first, largest first. The rest follow by estimated traffic from Meta’s impression ordering.',days:'Longest-running first. An ad still live after months is usually one the advertiser keeps paying for because it works.',score:'Blend of traffic, run time and how widely the creative is reused.',newest:'Most recently launched first: what competitors are testing right now.'};
+  $('note').textContent=st.tab==='ads'?notes[st.sort]:'Advertisers in the current filters. Click a row to see that brand’s ads.';
+  $('count').textContent=`${view.length.toLocaleString()} ads`;
+  if(st.tab==='brands'){renderBrands();return}
+  $('grid').innerHTML='';shown=0;drawMore();
+}
+function metricHtml(a){
+  if(st.sort==='days')return `<span class="metric">${a.days??'–'}d</span>`;
+  if(a.reach)return `<span class="metric" title="Measured EU reach">${fmtN(a.reach.n)}</span>`;
+  return `<span class="metric est" title="Estimated from impression rank">#${a.pos} of ${a.n} est.</span>`;
+}
+function drawMore(){
+  const g=$('grid');const frag=document.createDocumentFragment();
+  view.slice(shown,shown+PAGE).forEach((a,j)=>{const i=shown+j;
+    const b=document.createElement('button');b.type='button';b.className='card';
+    b.setAttribute('aria-label',`#${i+1} ${a.brand}`);
+    b.innerHTML=`<div class="thumb"><img loading="lazy" src="images/${a.id}.jpg" alt="${esc(a.brand)} ad"><span class="rank">#${i+1}</span>${a.fmt!=='Static'?`<span class="badge">${a.fmt}</span>`:''}<span class="catbar" style="background:${catColor(a.cat)}"></span></div>
+    <div class="meta"><div class="brand"><span>${esc(a.brand)}</span>${metricHtml(a)}</div>
+    <div class="title">${esc(a.title||a.body||a.dom||'')}</div>
+    <div class="facts"><span>${esc(a.mkt)}</span><span>${a.days??'–'}d live</span>${a.cc>1?`<span>${a.cc} ads</span>`:''}</div></div>`;
+    b.onclick=()=>openLb(i);frag.appendChild(b)});
+  g.appendChild(frag);shown=Math.min(shown+PAGE,view.length);
+  $('moreBtn').hidden=shown>=view.length;$('moreBtn').textContent=`Show more (${(view.length-shown).toLocaleString()} left)`;
+  if(!view.length)g.innerHTML='<p class="empty">No ads match these filters. Try another market or turn off "Measured reach only".</p>';
+}
+let bsort={k:'reach',dir:-1};
+function renderBrands(){
+  const m=new Map();
+  view.forEach(a=>{const r=m.get(a.pid)||{brand:a.brand,pid:a.pid,mkt:a.mkt,cat:a.cat,ads:0,reach:0,reachAds:0,days:[],maxDays:0,statics:0};
+    r.ads++;if(a.reach){r.reach+=a.reach.n;r.reachAds++}r.days.push(a.days||0);r.maxDays=Math.max(r.maxDays,a.days||0);if(a.fmt==='Static')r.statics++;m.set(a.pid,r)});
+  const rows=[...m.values()].map(r=>{const s=r.days.sort((x,y)=>x-y);r.med=s[Math.floor(s.length/2)];return r});
+  const cols=[['brand','Advertiser',0],['mkt','Market',0],['cat','Category',0],['ads','Ads',1],['statics','Statics',1],['reach','Measured EU reach',1],['med','Median days live',1],['maxDays','Longest run',1]];
+  rows.sort((a,b)=>{const x=a[bsort.k],y=b[bsort.k];return (typeof x==='string'?x.localeCompare(y):x-y)*bsort.dir});
+  const maxR=Math.max(1,...rows.map(r=>r.reach));
+  $('brandTable').querySelector('thead').innerHTML='<tr>'+cols.map(([k,l,n])=>`<th class="${n?'num':''}" data-k="${k}" ${bsort.k===k?`aria-sort="${bsort.dir<0?'descending':'ascending'}"`:''}>${l}${bsort.k===k?(bsort.dir<0?' ↓':' ↑'):''}</th>`).join('')+'</tr>';
+  $('brandTable').querySelector('tbody').innerHTML=rows.map(r=>`<tr class="brandrow" data-b="${esc(r.brand)}"><td><span class="dot" style="background:${catColor(r.cat)}"></span> ${esc(r.brand)}</td><td>${esc(r.mkt)}</td><td>${esc(r.cat)}</td><td class="num">${r.ads}</td><td class="num">${r.statics}</td><td class="num">${r.reach?fmtN(r.reach):'–'}<span class="bar" style="width:${Math.round(60*r.reach/maxR)}px"></span></td><td class="num">${r.med}</td><td class="num">${r.maxDays}</td></tr>`).join('');
+  $('brandTable').querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;bsort=bsort.k===k?{k,dir:-bsort.dir}:{k,dir:typeof rows[0]?.[k]==='string'?1:-1};renderBrands()});
+  $('brandTable').querySelectorAll('tr.brandrow').forEach(tr=>tr.onclick=()=>{st.q=tr.dataset.b;$('q').value=st.q;st.tab='ads';save();render()});
+}
+const lb=$('lb');
+function openLb(i){
+  idx=(i+view.length)%view.length;const a=view[idx];
+  $('lb-img').src=`images/${a.id}.jpg`;$('lb-img').alt=`${a.brand} ad`;
+  $('lb-eyebrow').textContent=`#${idx+1} · ${a.cat} · ${a.fmt}`;
+  $('lb-title').textContent=a.brand;
+  if(a.reach){const r=a.reach;const ages=['18-24','25-34','35-44','45-54','55-64','65+'];const ag=r.ages||{};const mx=Math.max(1,...ages.map(k=>ag[k]||0));
+    $('lb-reach').innerHTML=`<div class="reachbox"><div><div class="small">Measured EU reach</div><div class="big">${r.n.toLocaleString()}</div><div class="small">${r.ctry.map(([c,v])=>`${esc(c)} ${fmtN(v)}`).join(' · ')}</div></div>
+    <div><div class="small">Gender: ${r.male}% men · ${r.female}% women</div><div class="split"><i style="width:${r.male}%;background:var(--accent)"></i><i style="width:${r.female}%;background:var(--muted)"></i></div></div>
+    <div><div class="small">Age (largest: ${esc(r.age||'–')})</div><div class="ages" style="grid-template-columns:repeat(${ages.length},1fr)">${ages.map(k=>`<div style="height:${Math.round(100*(ag[k]||0)/mx)}%" title="${k}: ${(ag[k]||0).toLocaleString()}"></div>`).join('')}</div><div class="agelbl" style="grid-template-columns:repeat(${ages.length},1fr)">${ages.map(k=>`<span>${k}</span>`).join('')}</div></div></div>`}
+  else $('lb-reach').innerHTML=`<div class="reachbox"><div class="small">Traffic estimate</div><div class="big">#${a.pos} of ${a.n}</div><div class="small">Position in Meta's "most impressions" ordering for this ${a.n>40?'search':'advertiser'}. Meta publishes no reach numbers for ads outside the EU.</div></div>`;
+  const rows=[['Market',a.mkt],['Live since',`${a.start||'–'} (${a.days??'–'} days)`],['Ads using it',a.cc],['Landing domain',a.dom||'–'],['Button',a.cta||'–'],['Platforms',(a.plat||[]).join(', ')||'–'],['Score',a.score]];
+  $('lb-dl').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
+  $('lb-copy').textContent=[a.title,a.body].filter(Boolean).join('\n\n')||'No primary text (dynamic or catalog ad).';
+  $('lb-link').href=`https://www.facebook.com/ads/library/?id=${a.id}`;
+  if(!lb.open)lb.showModal();
+}
+$('lb-close').onclick=()=>lb.close();$('lb-prev').onclick=()=>openLb(idx-1);$('lb-next').onclick=()=>openLb(idx+1);
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowRight')openLb(idx+1);if(e.key==='ArrowLeft')openLb(idx-1)});
+</script>
+</body>
+</html>
