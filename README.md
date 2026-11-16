@@ -10,7 +10,7 @@ how long each ad has been running and how many people it reached.
 - `data/ads.json`: every ad with brand, market, category, format, start date, days live,
   measured EU reach and demographics where Meta publishes them, and scores
 - `images/<ad id>.jpg`: the creative (static image, or the video's thumbnail)
-- `designs/`: other pages, shown under the dashboard's **Designs** tab (see below)
+- `designs/`: ad designs, shown under the dashboard's **Designs** tab (see below)
 
 ## How traffic is measured
 Meta publishes reach (people who saw an ad) **only for ads shown in the EU**. Those ads
@@ -40,15 +40,6 @@ extraction scripts and category rules used for the first pull).
   and 9:16 (JPGs in `designs/sir-betalot/v1` and `v2`). Set 1 (12 Nov 2026) is the ten
   researched concepts on one template; set 2 (15 Nov 2026) is ten experimental visual styles.
   All copy is sample. Sources and render scripts live outside this repo, in `creatives/`.
-
-- `designs/eval-simulator.html`: a self-contained page (data embedded, no build step) built
-  from a StrategyTune EURUSD 15m backtest session. It replays the trades through prop-firm
-  eval rules ($25,000 account, $200 risk per trade, +$1,250 to pass, −$1,000 to fail, a fresh
-  account after each pass or fail) and shows every result plus the eval currently running.
-  The rules can be changed on the page. Snapshot of the session as saved on 12 Nov 2026
-  (115 trades); a live version that refreshes from StrategyTune exists as a private Claude
-  artifact and only opens for the owner's Claude account.
-
 ## Snapshot
 First pull: 10 Nov 2026. 1,889 ads from 258 advertisers across 43 markets; 137 ads with
 measured EU reach.
