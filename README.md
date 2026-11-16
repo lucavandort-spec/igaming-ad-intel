@@ -36,6 +36,11 @@ come from a full re-scrape of the public Ad Library (`scripts/scrape/` holds the
 extraction scripts and category rules used for the first pull).
 
 ## Designs
+- `designs/sir-betalot-statics.html`: gallery of twenty Sir Betalot static ads, each in 4:5
+  and 9:16 (JPGs in `designs/sir-betalot/v1` and `v2`). Set 1 (12 Nov 2026) is the ten
+  researched concepts on one template; set 2 (15 Nov 2026) is ten experimental visual styles.
+  All copy is sample. Sources and render scripts live outside this repo, in `creatives/`.
+
 Self-contained pages (data embedded, no build step) built from a StrategyTune EURUSD 15m
 backtest session:
 

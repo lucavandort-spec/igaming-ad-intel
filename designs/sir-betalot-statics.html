@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Sir Betalot Statics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f3f3f0; --surface:#ffffff; --line:#d9d9d2; --fg:#16171a; --muted:#5b5e64; --chip:#ebeae4;
+  --accent:#946410; --accent-ink:#ffffff;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111214; --surface:#1a1b1e; --line:#2b2d32; --fg:#ebebe8; --muted:#9c9ea5; --chip:#24262a;
+  --accent:#e2b250; --accent-ink:#16171a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111214; --surface:#1a1b1e; --line:#2b2d32; --fg:#ebebe8; --muted:#9c9ea5; --chip:#24262a;
+  --accent:#e2b250; --accent-ink:#16171a; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--body)}
+.wrap{max-width:1480px;margin:0 auto;padding:26px max(16px,env(safe-area-inset-left,0px)) 64px}
+a{color:inherit}
+.back{font:600 13px var(--body);color:var(--muted);text-decoration:none}
+.back:hover{color:var(--fg)}
+h1{font:800 clamp(34px,5vw,58px)/.95 var(--display);text-transform:uppercase;margin:10px 0 0;text-wrap:balance}
+h2{font:800 30px/1 var(--display);text-transform:uppercase;margin:0}
+.eyebrow{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{max-width:78ch;color:var(--muted);margin:10px 0 0}
+header{border-bottom:1px solid var(--line);padding-bottom:20px;display:grid;gap:14px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{font:600 13px var(--body);padding:9px 16px;min-height:40px;border:0;background:var(--surface);color:var(--fg);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+section{padding-top:30px}
+.shead{display:grid;gap:6px;margin-bottom:16px}
+.shead p{margin:0;color:var(--muted);max-width:90ch;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:16px}
+figure{margin:0;border:1px solid var(--line);background:var(--surface);min-width:0;display:flex;flex-direction:column}
+figure a{display:block;background:var(--chip)}
+figure img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+body.tall figure img{aspect-ratio:9/16}
+figcaption{padding:10px 12px 12px;display:grid;gap:3px}
+figcaption b{font:700 19px/1.05 var(--display);text-transform:uppercase}
+figcaption span{font-size:13px;color:var(--muted)}
+.n{font:600 11px var(--mono);color:var(--muted)}
+.note{font-size:13px;color:var(--muted);max-width:100ch;margin:28px 0 0;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../index.html">← Casino Ad Intel</a>
+    <div>
+      <div class="eyebrow">Sir Betalot · static Meta ads · Nov 2026</div>
+      <h1>Sir Betalot statics</h1>
+      <p class="lede">Twenty static ads built on the brand's style guide and the ad research on this site. Set 1 shares one template; set 2 gives each ad its own visual style. Every ad comes in 4:5 feed and 9:16 Stories/Reels. Click an ad for the full-size file.</p>
+    </div>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Format">
+        <button type="button" id="f45" aria-pressed="true">4:5 feed</button>
+        <button type="button" id="f916" aria-pressed="false">9:16 Stories</button>
+      </div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-v2">
+    <div class="shead">
+      <div class="eyebrow">Set 2 · 15 Nov 2026</div>
+      <h2 id="h-v2">Ten experimental styles</h2>
+      <p>Each ad uses a different visual approach so the set does not look alike from a distance. Several step outside the style guide's colour and type rules on purpose.</p>
+    </div>
+    <div class="grid" id="v2"></div>
+  </section>
+
+  <section aria-labelledby="h-v1">
+    <div class="shead">
+      <div class="eyebrow">Set 1 · 12 Nov 2026</div>
+      <h2 id="h-v1">Ten concepts, one template</h2>
+      <p>The ten concepts ranked in the research: purple arena, gold number, knight behind a table, green button.</p>
+    </div>
+    <div class="grid" id="v1"></div>
+  </section>
+
+  <p class="note"><strong>Design work, not live ads.</strong> All copy, offers, prices, times and legal lines are samples. Nothing here has run on Meta.</p>
+</div>
+<script>
+const SETS={
+  v2:[
+    ['01-gold-poster','Print poster','Solid gold, knight as a dot screen. 50 free spins, no wagering'],
+    ['02-giant-zero','One huge numeral','A zero that fills the frame. Wagering requirement: 0'],
+    ['03-white-editorial','Magazine page','Almost all white. No wagering. No catch. No kidding.'],
+    ['04-lock-screen','Phone lock screen','Three notifications: withdrawal requested, approved, received'],
+    ['05-comic-strip','Comic strip','Three panels. Rough night? 40% back, every week'],
+    ['06-golden-ticket','Golden ticket','The ad is a ticket. Admit one: 50 free spins'],
+    ['07-slot-reels','Slot reels','The ad is a slot on 7-7-7. 50 free spins'],
+    ['08-neon-sign','Neon sign','Glowing tubes on brick. Live casino, open 24/7'],
+    ['09-trading-card','Trading card','Collectible card with four stats'],
+    ['10-them-vs-us','Them vs us','Grey half against purple. 3-5 days vs minutes']],
+  v1:[
+    ['01-big-number','Big number','100% welcome bonus'],
+    ['02-instant-payouts','Instant payouts','Paid in minutes'],
+    ['03-slot-offer','Slot offer','50 free spins on a named slot'],
+    ['04-no-strings','No strings','No wagering. No catch.'],
+    ['05-cashback','Cashback','40% back, every week'],
+    ['06-one-account','One account','Casino and sportsbook together'],
+    ['07-match-day','Match day','Fixture with three prices'],
+    ['08-game-library','Game library','3,000+ games'],
+    ['09-knight-speaks','The knight speaks','One sentence, no button'],
+    ['10-three-steps','Three steps','Sign up, deposit, play']]
+};
+let tall=false;
+function draw(){
+  const size=tall?'1080x1920':'1080x1350';
+  document.body.classList.toggle('tall',tall);
+  for(const [set,items] of Object.entries(SETS)){
+    document.getElementById(set).innerHTML=items.map(([f,t,d])=>{
+      const src=`sir-betalot/${set}/${f}-${size}.jpg`;
+      return `<figure><a href="${src}" target="_blank" rel="noopener" aria-label="${t}, full size"><img src="${src}" alt="${t}: ${d}" loading="lazy" width="1080" height="${tall?1920:1350}"></a><figcaption><span class="n">${f.slice(0,2)}</span><b>${t}</b><span>${d}</span></figcaption></figure>`}).join('');
+  }
+  document.getElementById('f45').setAttribute('aria-pressed',!tall);
+  document.getElementById('f916').setAttribute('aria-pressed',tall);
+}
+document.getElementById('f45').onclick=()=>{tall=false;draw()};
+document.getElementById('f916').onclick=()=>{tall=true;draw()};
+draw();
+</script>
+</body>
+</html>
