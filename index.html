@@ -77,6 +77,17 @@ label.tog{display:inline-flex;gap:6px;align-items:center;font-size:13px;cursor:p
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn:focus-visible,.chip-btn:focus-visible,select:focus-visible,input:focus-visible,.view:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .empty{padding:40px 0;color:var(--muted)}
+[hidden]{display:none!important}
+.designs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:18px;padding-top:18px}
+.dcard{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);background:var(--surface)}
+.dprev{display:block;position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;background:#020617;border-bottom:1px solid var(--line)}
+.dprev iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none}
+.dprev:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dbody{padding:14px 16px 16px;display:grid;gap:8px;align-content:start}
+.dbody h3{font:800 26px/1 var(--display);text-transform:uppercase;margin:0;text-wrap:balance}
+.dbody p{margin:0;font-size:14px;color:var(--muted)}
+.dfacts{font:400 12px var(--mono);color:var(--muted);display:flex;flex-wrap:wrap;gap:3px 12px}
+.dactions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
 .tablewrap{overflow-x:auto;padding-top:14px}
 table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -125,6 +136,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
   <div class="views" role="tablist" aria-label="View">
     <button class="view" role="tab" id="tab-ads" aria-selected="true">Ads</button>
     <button class="view" role="tab" id="tab-brands" aria-selected="false">Brands</button>
+    <button class="view" role="tab" id="tab-designs" aria-selected="false">Designs</button>
   </div>
 
   <div class="controls" role="group" aria-label="Filter and sort">
@@ -151,8 +163,39 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
   <section id="brandsView" hidden>
     <div class="tablewrap"><table id="brandTable"><thead></thead><tbody></tbody></table></div>
   </section>
+  <section id="designsView" hidden aria-label="Designs">
+    <div class="designs">
+      <article class="dcard">
+        <a class="dprev" href="designs/trade-calendar.html" aria-label="Open Trade Calendar"><iframe src="designs/trade-calendar.html" title="Trade Calendar preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></a>
+        <div class="dbody">
+          <div class="eyebrow">StrategyTune backtest · EURUSD 15m</div>
+          <h3>Trade Calendar</h3>
+          <p>Daily P&amp;L calendar of a backtest session, with an equity and drawdown curve, results by entry day and hour, R-multiple spread and every trade.</p>
+          <div class="dfacts"><span>115 trades</span><span>snapshot of 12 Nov 2026</span></div>
+          <div class="dactions">
+            <a class="btn primary" href="designs/trade-calendar.html">Open</a>
+            <a class="btn" href="https://claude.ai/artifact/TDRXi8ioNcR27X174vk6C8" target="_blank" rel="noopener" title="Private: opens for the owner's Claude account only">Live version in Claude</a>
+          </div>
+        </div>
+      </article>
+      <article class="dcard">
+        <a class="dprev" href="designs/eval-simulator.html" aria-label="Open Eval Pass Simulator"><iframe src="designs/eval-simulator.html" title="Eval Pass Simulator preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></a>
+        <div class="dbody">
+          <div class="eyebrow">Prop-firm eval test · StrategyTune backtest</div>
+          <h3>Eval Pass Simulator</h3>
+          <p>Replays the same trades through prop-firm eval rules ($200 risk, +$1,250 to pass, −$1,000 to fail) and shows every pass and fail, plus which eval is running now. Rules are editable.</p>
+          <div class="dfacts"><span>9 passed · 0 failed</span><span>eval #10 running</span><span>snapshot of 12 Nov 2026</span></div>
+          <div class="dactions">
+            <a class="btn primary" href="designs/eval-simulator.html">Open</a>
+            <a class="btn" href="https://claude.ai/artifact/H8L2tCtCHqiPRGCsobX5zB" target="_blank" rel="noopener" title="Private: opens for the owner's Claude account only">Live version in Claude</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="note">These pages are offline snapshots that open straight from this site. The live versions refresh from StrategyTune and only open in Claude for the account that owns them.</p>
+  </section>
 
-  <footer>
+  <footer id="adsFooter">
     <p><strong>Traffic.</strong> Meta publishes real reach (people who saw the ad) only for ads shown in the EU. Those ads show a measured number. Everywhere else (UK, US, Canada, Latin America, etc.) Meta shows no numbers, so traffic is estimated from where the ad sits in Meta's own "most impressions" ordering for that advertiser, and is marked <em>est.</em></p>
     <p><strong>Combined score</strong> = 45% traffic (reach percentile, or impression rank if no reach), 40% days running, 15% how many ads reuse the same creative.</p>
     <p><strong>Unverified promoters</strong> are personal-looking pages pushing casino offers, often offshore or unlicensed. Kept for reference; not something to copy.</p>
@@ -215,8 +258,12 @@ function init(){
   $('moreBtn').onclick=()=>drawMore();
   $('tab-ads').onclick=()=>{st.tab='ads';save();render()};
   $('tab-brands').onclick=()=>{st.tab='brands';save();render()};
+  $('tab-designs').onclick=()=>{st.tab='designs';save();render()};
   render();
 }
+// scale each design preview (a 1280px-wide page) to fit its card
+const fitPreviews=()=>document.querySelectorAll('.dprev').forEach(p=>{const f=p.querySelector('iframe');if(f&&p.clientWidth)f.style.transform=`scale(${p.clientWidth/1280})`});
+if(window.ResizeObserver)new ResizeObserver(fitPreviews).observe($('designsView'));
 function renderCats(){
   const base=filtered(false);
   $('cats').innerHTML=CATS.map(c=>{const n=base.filter(a=>a.cat===c.k).length;const on=st.cats.includes(c.k);
@@ -233,8 +280,11 @@ const sorters={
   score:(a,b)=>b.score-a.score,
   newest:(a,b)=>((a.days??1e9)-(b.days??1e9))};
 function render(){
-  $('tab-ads').setAttribute('aria-selected',st.tab==='ads');$('tab-brands').setAttribute('aria-selected',st.tab==='brands');
-  $('adsView').hidden=st.tab!=='ads';$('brandsView').hidden=st.tab!=='brands';
+  ['ads','brands','designs'].forEach(t=>$('tab-'+t).setAttribute('aria-selected',st.tab===t));
+  $('adsView').hidden=st.tab!=='ads';$('brandsView').hidden=st.tab!=='brands';$('designsView').hidden=st.tab!=='designs';
+  const designs=st.tab==='designs';
+  document.querySelector('.controls').hidden=designs;$('note').hidden=designs;$('adsFooter').hidden=designs;
+  if(designs){fitPreviews();return}
   renderCats();
   view=filtered().sort(sorters[st.sort]);
   const notes={traffic:'Ads with measured EU reach come first, largest first. The rest follow by estimated traffic from Meta’s impression ordering.',days:'Longest-running first. An ad still live after months is usually one the advertiser keeps paying for because it works.',score:'Blend of traffic, run time and how widely the creative is reused.',newest:'Most recently launched first: what competitors are testing right now.'};
