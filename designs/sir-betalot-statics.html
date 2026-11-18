@@ -59,7 +59,7 @@ figcaption span{font-size:13px;color:var(--muted)}
     <div>
       <div class="eyebrow">Sir Betalot · static Meta ads · Nov 2026</div>
       <h1>Sir Betalot statics</h1>
-      <p class="lede">Twenty static ads built on the brand's style guide and the ad research on this site. Set 1 shares one template; set 2 gives each ad its own visual style. Every ad comes in 4:5 feed and 9:16 Stories/Reels. Click an ad for the full-size file.</p>
+      <p class="lede">Thirty static ads built on the brand's style guide and the ad research on this site. Set 1 shares one template; set 2 gives each ad its own visual style; set 1 BR is set 1 rewritten in Brazilian Portuguese with the client's Brazil offers. Every ad comes in 4:5 feed and 9:16 Stories/Reels. Click an ad for the full-size file.</p>
     </div>
     <div class="bar">
       <div class="seg" role="group" aria-label="Format">
@@ -68,6 +68,15 @@ figcaption span{font-size:13px;color:var(--muted)}
       </div>
     </div>
   </header>
+
+  <section aria-labelledby="h-v1br">
+    <div class="shead">
+      <div class="eyebrow">Set 1 BR · 18 Nov 2026 · pt-BR</div>
+      <h2 id="h-v1br">Set 1 for Brazil</h2>
+      <p>The set 1 template with Brazilian Portuguese copy and the real Brazil offers: casino 100% up to R$ 300, sportsbook 3 × R$ 50 free bets (5× rollover, min. odds 2.10), 40% cashback. Invented claims (payout speed, free spins, no wagering, game count, odds) are replaced. The match ad is now Singapore v Brazil, matching its landing page. LP numbers refer to the client's landing-page list.</p>
+    </div>
+    <div class="grid" id="v1-pt-br" lang="pt-BR"></div>
+  </section>
 
   <section aria-labelledby="h-v2">
     <div class="shead">
@@ -87,10 +96,21 @@ figcaption span{font-size:13px;color:var(--muted)}
     <div class="grid" id="v1"></div>
   </section>
 
-  <p class="note"><strong>Design work, not live ads.</strong> All copy, offers, prices, times and legal lines are samples. Nothing here has run on Meta.</p>
+  <p class="note"><strong>Design work, not live ads.</strong> In sets 1 and 2 all copy, offers, prices, times and legal lines are samples. Set 1 BR uses the client's Brazil offers but is not yet approved by the client, and its legal lines still need the licence wording. Nothing here has run on Meta.</p>
 </div>
 <script>
 const SETS={
+  'v1-pt-br':[
+    ['01-big-number','100% bônus de cassino','No 1º depósito, até R$ 300 · LP 2 casino'],
+    ['02-instant-payouts','3 apostas grátis','R$ 50 cada, with a "free bet unlocked" card · LP 3 sportsbook'],
+    ['03-slot-offer','R$ 300 de bônus','Dobramos seu 1º depósito · LP 2 casino'],
+    ['04-no-strings','Cassino ou esporte?','Você escolhe seu bônus no caixa · LP 1 main'],
+    ['05-cashback','40% cashback','Aplicado automaticamente · LP 1 main'],
+    ['06-one-account','Uma conta','Cassino + esportes, com bônus de boas-vindas · LP 1 main'],
+    ['07-match-day','Singapura x Brasil','New Singapore knight, R$ 150 em apostas grátis · LP 4 match'],
+    ['08-game-library','R$ 150 em apostas grátis','3 apostas de R$ 50 · LP 3 sportsbook'],
+    ['09-knight-speaks','Sua mesa te espera','One sentence, no button · LP 1 main'],
+    ['10-three-steps','3 passos','Cadastre-se, deposite, jogue · LP 1 main']],
   v2:[
     ['01-gold-poster','Print poster','Solid gold, knight as a dot screen. 50 free spins, no wagering'],
     ['02-giant-zero','One huge numeral','A zero that fills the frame. Wagering requirement: 0'],
